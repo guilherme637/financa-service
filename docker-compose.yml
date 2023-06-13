@@ -1,0 +1,42 @@
+services:
+  php:
+    container_name: php
+    build:
+      context: .
+      dockerfile: ./devops/docker/php/Dockerfile
+    volumes:
+      - .:/var/www/html/skeleton:rw
+    networks:
+      - backend
+
+  apache2:
+    container_name: apache
+    build:
+      context: .
+      dockerfile: ./devops/docker/apache/Dockerfile
+    ports:
+      - 3030:80
+    volumes:
+      - .:/var/www/html/skeleton:rw
+      - ./devops/docker/apache/vhosts/api.conf:/etc/apache2/sites-enabled/default.conf
+    networks:
+      - backend
+    depends_on:
+      - php
+  db:
+    container_name: postgres
+    build:
+      context: .
+      dockerfile: ./devops/docker/postgres/Dockerfile
+#    restart: always
+    ports:
+      - 5432:5432
+    volumes:
+      - .:/var/lib/postegresql/data:rw
+      - ./devops/docker/postgres/create_fixtures.sql:/docker-entrypoint-initdb.d/create_fixtures.sql
+    networks:
+      backend:
+
+networks:
+  backend:
+    driver: bridge
