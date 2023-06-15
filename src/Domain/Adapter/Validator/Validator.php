@@ -3,6 +3,8 @@
 namespace App\Domain\Adapter\Validator;
 
 use App\Infrastructure\Subscriber\Exception\Status400\BadRequestHttpException;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class Validator implements ValidatorAdapterInterface
@@ -15,9 +17,19 @@ class Validator implements ValidatorAdapterInterface
     public function validate(object $object): void
     {
         $errors = $this->validator->validate($object);
+        $collectionErrors = new ArrayCollection();
 
         if (count($errors) > 0) {
-            throw new BadRequestHttpException((string)$errors);
+            /** @var ConstraintViolation $error */
+            foreach ($errors as $error) {
+                $collectionErrors->add(
+                    '{{' . $error->getPropertyPath() . '}} ' . $error->getMessage()
+                );
+            }
         }
+
+        throw new BadRequestHttpException(
+            implode(', ', $collectionErrors->toArray())
+        );
     }
 }

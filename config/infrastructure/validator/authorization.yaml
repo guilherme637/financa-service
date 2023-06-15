@@ -1,0 +1,16 @@
+App\Domain\VO\AuthorizationVO:
+  properties:
+    responseType:
+      - NotBlank: ~
+    clientId:
+      - NotBlank: ~
+    redirectId:
+      - NotBlank: ~
+    scope:
+      - NotBlank: ~
+    state:
+      - NotBlank: ~
+    email:
+      - NotBlank: ~
+    password:
+      - NotBlank: ~

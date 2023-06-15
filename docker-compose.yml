@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: ./devops/docker/php/Dockerfile
     volumes:
-      - .:/var/www/html/skeleton:rw
+      - .:/var/www/html/auth-service:rw
     networks:
       - backend
 
@@ -17,7 +17,7 @@ services:
     ports:
       - 3030:80
     volumes:
-      - .:/var/www/html/skeleton:rw
+      - .:/var/www/html/auth-service:rw
       - ./devops/docker/apache/vhosts/api.conf:/etc/apache2/sites-enabled/default.conf
     networks:
       - backend
