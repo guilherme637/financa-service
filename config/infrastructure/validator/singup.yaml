@@ -1,0 +1,12 @@
+App\Domain\VO\SingUpVO:
+  exclusion_policy: ALL
+  properties:
+    username:
+      - NotBlank: ~
+    email:
+      - NotBlank: ~
+      - Email: ~
+    password:
+      - NotBlank: ~
+    scopes:
+      - NotBlank: ~

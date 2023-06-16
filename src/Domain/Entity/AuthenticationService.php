@@ -3,19 +3,16 @@
 namespace App\Domain\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
-class AuthorizationService
+class AuthenticationService
 {
     private int $id;
     private string $clientId;
     private string $secret;
     private string $redirectUri;
-    private ArrayCollection $scopes;
+    private int $scopes;
 
-    public function __construct()
-    {
-        $this->scopes = new ArrayCollection();
-    }
 
     public function getId(): int
     {
@@ -52,13 +49,13 @@ class AuthorizationService
         $this->redirectUri = $redirectUri;
     }
 
-    public function getScopes(): ArrayCollection
+    public function getScopes(): int
     {
         return $this->scopes;
     }
 
-    public function setScopes(Scope $scopes): void
+    public function setScopes(int $scopes): void
     {
-        $this->scopes->add($scopes);
+        $this->scopes = $scopes;
     }
 }

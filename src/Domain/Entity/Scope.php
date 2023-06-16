@@ -4,7 +4,7 @@ namespace App\Domain\Entity;
 
 class Scope
 {
-    private int $id;
+    private int $nuSeqScopes;
     private string $scope;
 
     public function getId(): int
