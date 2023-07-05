@@ -26,10 +26,10 @@ class Validator implements ValidatorAdapterInterface
                     '{{' . $error->getPropertyPath() . '}} ' . $error->getMessage()
                 );
             }
-
-            throw new BadRequestHttpException(
-                implode(', ', $collectionErrors->toArray())
-            );
         }
+
+        throw new BadRequestHttpException(
+            implode(', ', $collectionErrors->toArray())
+        );
     }
 }

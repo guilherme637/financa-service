@@ -1,4 +1,4 @@
-App\Domain\VO\AuthenticationVO:
+App\Domain\VO\AuthorizationVO:
   properties:
     responseType:
       - NotBlank: ~
@@ -12,6 +12,5 @@ App\Domain\VO\AuthenticationVO:
       - NotBlank: ~
     email:
       - NotBlank: ~
-      - Email: ~
     password:
       - NotBlank: ~

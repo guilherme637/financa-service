@@ -2,7 +2,7 @@
 
 namespace App\Domain\VO;
 
-readonly class AuthorizeVO
+readonly class AuthorizationVO
 {
     public function __construct(
         public string $responseType,

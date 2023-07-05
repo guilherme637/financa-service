@@ -1,4 +1,4 @@
-App\Domain\VO\AuthorizeVO:
+App\Domain\VO\AuthorizationVO:
   exclusion_policy: ALL
   properties:
     responseType:
