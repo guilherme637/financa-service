@@ -13,16 +13,16 @@ class ResponseSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::EXCEPTION => [
-                ['onResponse', 100]
-            ]
+//            KernelEvents::EXCEPTION => [
+//                ['onResponse', 100]
+//            ]
         ];
     }
 
     public function onResponse(ExceptionEvent $event)
     {
-//        dump($event->getThrowable());
-//        exit();
+        dump($event->getThrowable());
+        exit();
         $resolver = new Resolver();
         $responseVO = $resolver->resolver($event->getThrowable());
 

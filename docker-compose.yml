@@ -1,42 +1,45 @@
 services:
   php:
-    container_name: php
+    container_name: php_financas
     build:
       context: .
       dockerfile: ./devops/docker/php/Dockerfile
     volumes:
-      - .:/var/www/html/auth-service:rw
+      - .:/var/www/html/controle-gastos-service:rw
     networks:
-      - backend
+      - external-net
+    extra_hosts:
+      - auth-service:host-gateway
 
   apache2:
-    container_name: apache
+    container_name: apache_financas
     build:
       context: .
       dockerfile: ./devops/docker/apache/Dockerfile
     ports:
       - 3030:80
     volumes:
-      - .:/var/www/html/auth-service:rw
+      - .:/var/www/html/controle-gastos-service:rw
       - ./devops/docker/apache/vhosts/api.conf:/etc/apache2/sites-enabled/default.conf
     networks:
-      - backend
+      - external-net
     depends_on:
       - php
-  db:
-    container_name: postgres
-    build:
-      context: .
-      dockerfile: ./devops/docker/postgres/Dockerfile
-#    restart: always
-    ports:
-      - 5432:5432
-    volumes:
-      - .:/var/lib/postegresql/data:rw
-      - ./devops/docker/postgres/create_fixtures.sql:/docker-entrypoint-initdb.d/create_fixtures.sql
-    networks:
-      backend:
+#  db:
+#    container_name: postgres
+#    build:
+#      context: .
+#      dockerfile: ./devops/docker/postgres/Dockerfile
+##    restart: always
+#    ports:
+#      - 5432:5432
+#    volumes:
+#      - .:/var/lib/postegresql/data:rw
+#      - ./devops/docker/postgres/create_fixtures.sql:/docker-entrypoint-initdb.d/create_fixtures.sql
+#    networks:
+#      external-net:
 
 networks:
-  backend:
-    driver: bridge
+  external-net:
+    external:
+      name: external-net

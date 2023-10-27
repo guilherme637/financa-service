@@ -10,7 +10,7 @@ RUN #docker-php-ext-install gd
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install pdo_pgsql
 
-WORKDIR /var/www/html/auth-service
+WORKDIR /var/www/html/controle-gastos-service
 
 RUN chown -R $(whoami) $(pwd)
 
