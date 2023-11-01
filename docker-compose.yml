@@ -6,10 +6,13 @@ services:
       dockerfile: ./devops/docker/php/Dockerfile
     volumes:
       - .:/var/www/html/controle-gastos-service:rw
+      - /certificates:/certificates
+      - ./devops/docker/php/php.ini:/usr/local/etc/php/php.ini
     networks:
       - external-net
     extra_hosts:
       - auth-service:host-gateway
+      - redis:host-gateway
 
   apache2:
     container_name: apache_financas
@@ -32,14 +35,13 @@ services:
 #      dockerfile: ./devops/docker/postgres/Dockerfile
 ##    restart: always
 #    ports:
-#      - 5432:5432
+#      - 5433:5433
 #    volumes:
 #      - .:/var/lib/postegresql/data:rw
-#      - ./devops/docker/postgres/create_fixtures.sql:/docker-entrypoint-initdb.d/create_fixtures.sql
+##      - ./devops/docker/postgres/create_fixtures.sql:/docker-entrypoint-initdb.d/create_fixtures.sql
 #    networks:
 #      external-net:
 
 networks:
   external-net:
-    external:
-      name: external-net
+    external: true

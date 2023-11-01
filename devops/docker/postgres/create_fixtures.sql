@@ -1,6 +1,6 @@
-CREATE TABLE IF NOT EXISTS scopes (
-    nu_seq_scopes serial PRIMARY KEY,
-    ds_scope VARCHAR (15) NOT NULL
+CREATE TABLE IF NOT EXISTS users (
+    nu_seq_users serial PRIMARY KEY,
+
 );
 
 CREATE TABLE IF NOT EXISTS authorization_serve (

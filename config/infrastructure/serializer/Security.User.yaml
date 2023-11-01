@@ -1,0 +1,15 @@
+Domain/Entity/Usuario:
+  exclusion_policy: ALL
+  properties:
+    id:
+      type: string
+      serialized_name: id
+    username:
+      type: string
+      serialized_name: username
+    email:
+      type: string
+      serialized_name: email
+    scope:
+      type: string
+      serialized_name: scope

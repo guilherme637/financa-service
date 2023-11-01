@@ -13,9 +13,9 @@ class ResponseSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-//            KernelEvents::EXCEPTION => [
-//                ['onResponse', 100]
-//            ]
+            KernelEvents::EXCEPTION => [
+                ['onResponse', 100]
+            ]
         ];
     }
 

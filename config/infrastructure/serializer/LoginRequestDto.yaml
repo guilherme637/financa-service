@@ -1,0 +1,18 @@
+App\Presentation\Dto\TokenRequestDto:
+  exclusion_policy: ALL
+  properties:
+    grantType:
+      type: string
+      serialized_name: grant_type
+    clientId:
+      type: string
+      serialized_name: client_id
+    code:
+      type: string
+      serialized_name: code
+    clientSecret:
+      type: string
+      serialized_name: client_secret
+    redirectId:
+      type: string
+      serialized_name: redirect_uri

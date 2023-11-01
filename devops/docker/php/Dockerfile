@@ -9,6 +9,8 @@ RUN #docker-php-ext-configure gd --with-jpeg=/usr/include/ --with-freetype=/usr/
 RUN #docker-php-ext-install gd
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install pdo_pgsql
+RUN pecl install redis && docker-php-ext-enable redis
+
 
 WORKDIR /var/www/html/controle-gastos-service
 

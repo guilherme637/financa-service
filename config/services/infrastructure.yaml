@@ -1,0 +1,18 @@
+services:
+  # default configuration for services in *this* file
+  _defaults:
+    autowire: true      # Automatically injects dependencies in your services.
+    autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+#  App\Infrastructure\Assembler\LoginAssembler:
+#    arguments:
+#      ['%env(resolve:OAUTH_URL)%','%env(OAUTH_CLIENT_ID)%', '%env(OAUTH_RESPONSE_TYPE)%', '%env(resolve:OAUTH_REDIRECT_URI)%']
+
+  App\Domain\Adapter\Redis\RedisAdapter:
+    arguments:
+      $host: '%env(HOST_REDIS)%'
+
+  App\Infrastructure\Client\ClientAuthService:
+    arguments:
+      $host: '%env(resolve:OAUTH_URL)%'
+
