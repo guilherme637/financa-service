@@ -5,19 +5,30 @@ namespace App\Domain\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-/**
- * @method string getUserIdentifier()
- */
-class Usuario extends \Zuske\AuthClient\Security\Usuario
+class Categoria
 {
     private int $id;
-    private string $username;
-    private string $email;
+    private int $nome;
     private Collection $contas;
 
     public function __construct()
     {
         $this->contas = new ArrayCollection();
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    public function getNome(): int
+    {
+        return $this->nome;
+    }
+
+    public function setNome(int $nome): void
+    {
+        $this->nome = $nome;
     }
 
     public function getContas(): Collection

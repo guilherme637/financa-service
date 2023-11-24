@@ -1,4 +1,4 @@
-Domain/Entity/Usuario:
+App\Domain\Entity\Usuario:
   exclusion_policy: ALL
   properties:
     id:

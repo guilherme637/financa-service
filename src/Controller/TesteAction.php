@@ -2,22 +2,16 @@
 
 namespace App\Controller;
 
-use Auth\Token;
-
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\ConnectException;
-use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\RequestOptions;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class TesteAction
 {
     private Client $client;
     private TokenStorageInterface $token;
-
     public function __construct(TokenStorageInterface $token)
     {
         $this->client = new Client([
@@ -34,8 +28,6 @@ class TesteAction
     #[Route('/teste')]
     public function __invoke(Request $request)
     {
-        dump($this->token->getToken()->getUser());
-        exit();
 //        try {
 //            $redis = new \Redis();
 //            $redis->connect('redis');

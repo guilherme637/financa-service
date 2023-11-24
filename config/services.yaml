@@ -2,3 +2,4 @@ imports:
     - { resource: services/global.yaml }
     - { resource: services/domain.yaml }
     - { resource: services/infrastructure.yaml }
+

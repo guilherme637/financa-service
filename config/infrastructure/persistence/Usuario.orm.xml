@@ -1,0 +1,12 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
+    <entity name="App\Domain\Entity\Usuario">
+        <id name="id">
+            <generator strategy="AUTO"/>
+        </id>
+
+        <field name="email" column="email" type="string" nullable="false"/>
+        <field name="username" column="username" type="string" nullable="false"/>
+
+        <one-to-many field="contas" target-entity="App\Domain\Entity\Conta" mapped-by="usuario" fetch="EXTRA_LAZY"/>
+    </entity>
+</doctrine-mapping>

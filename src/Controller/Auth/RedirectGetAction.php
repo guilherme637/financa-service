@@ -3,27 +3,40 @@
 namespace App\Controller\Auth;
 
 use App\Domain\Adapter\Redis\RedisAdapterInterface;
+use App\Domain\Adapter\Serializer\SerializerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Zuske\AuthClient\Security\Usuario;
+use Zuske\AuthClient\Service\Auth\AuthClientServiceInterface;
 
 class RedirectGetAction
 {
-    public function __construct(private readonly RedisAdapterInterface $redisAdapter) {}
+    public function __construct(
+        private readonly AuthClientServiceInterface $authService,
+        private readonly RedisAdapterInterface $redisAdapter,
+        private readonly SerializerInterface $serializer
+    ) {}
 
     #[Route('/', methods: ['GET'])]
     public function __invoke(Request $request)
     {
-        $hasToken = $this->redisAdapter->get($request->getSession()->get('state'));
+        $code = $request->get('code');
 
-        if (empty($hasToken)) {
-            $request->getSession()->clear();
+        if (!$code) {
+            return new JsonResponse('');
         }
 
-        $code = $hasToken
-            ? ['code' => $request->get('code')]
-            : ['links' => 'http://www.financa-service.com.br:3030/login'];
+        $tokenVO = $this->authService->makeAuthentication($request->get('code'), 'apache2_auth_service:80');
 
-        return new JsonResponse($code);
+        $this->redisAdapter->setExpKey(
+            $tokenVO->getToken(),
+            7200,
+            $this->serializer->serialize((array) $tokenVO->getTokenDecript()->sub, 'json')
+        );
+
+        return new JsonResponse($tokenVO->getToken());
     }
 }

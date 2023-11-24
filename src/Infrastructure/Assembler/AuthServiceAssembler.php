@@ -3,20 +3,16 @@
 namespace App\Infrastructure\Assembler;
 
 use App\Presentation\Dto\TokenRequestDto;
-use App\Presentation\VO\AuthServiceVO;
+use App\Presentation\Resolver\AuthServiceResolver;
 
 class AuthServiceAssembler
 {
+
+
     public function assemblerTokenPost(string $code): TokenRequestDto
     {
         $authServiceVO = new AuthServiceVO();
 
-        return new TokenRequestDto(
-            $authServiceVO->getGranType(),
-            $authServiceVO->getClientId(),
-            $code,
-            $authServiceVO->getClientSecret(),
-            $authServiceVO->getRedirectUri()
-        );
+
     }
 }

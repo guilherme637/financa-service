@@ -1,13 +1,33 @@
-CREATE TABLE IF NOT EXISTS users (
-    nu_seq_users serial PRIMARY KEY,
-
+CREATE TABLE IF NOT EXISTS categoria (
+    nu_seq_categoria serial PRIMARY KEY,
+    nome VARCHAR NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS authorization_serve (
-   nu_seq_authorization_serve serial PRIMARY KEY,
-   client_id VARCHAR NOT NULL,
-   secret VARCHAR NOT NULL,
-   redirect_uri VARCHAR (225) NOT NULL,
-   nu_seq_scopes INTEGER NOT NULL,
-   CONSTRAINT fk_nu_seq_scopes FOREIGN KEY(nu_seq_scopes) REFERENCES scopes(nu_seq_scopes)
+CREATE TABLE IF NOT EXISTS parcela (
+    nu_seq_parcela serial PRIMARY KEY,
+    total INTEGER DEFAULT 0,
+    pago INTEGER DEFAULT 0
 );
+
+CREATE TABLE IF NOT EXISTS conta (
+   nu_seq_conta serial PRIMARY KEY,
+   valor DECIMAL NOT NULL,
+   mes_divida TIMESTAMP NOT NULL,
+   situacao VARCHAR (225) NOT NULL,
+   nu_seq_categoria INTEGER NOT NULL,
+   nu_seq_parcela INTEGER NOT NULL,
+   nu_seq_usuario INTEGER NOT NULL,
+
+   CONSTRAINT fk_nu_seq_categoria FOREIGN KEY(nu_seq_categoria) REFERENCES categoria(nu_seq_categoria),
+   CONSTRAINT fk_nu_seq_parcela FOREIGN KEY(nu_seq_parcela) REFERENCES parcela(nu_seq_parcela)
+);
+
+alter table parcela
+    add nu_seq_conta integer not null,
+    add constraint fk_nu_seq_conta
+        foreign key (nu_seq_conta) references conta (nu_seq_conta);
+
+alter table categoria
+    add nu_seq_conta integer not null,
+    add constraint fk_nu_seq_conta
+        foreign key (nu_seq_conta) references conta (nu_seq_conta);

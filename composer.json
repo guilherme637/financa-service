@@ -23,7 +23,8 @@
         "symfony/validator": "5.4.*",
         "symfony/yaml": "5.4.*",
         "tobion/openapi-symfony-routing": "^1.2",
-        "zuske/auth-authentication": "~1.1.0"
+        "zuske/auth-authentication": "~1.1.0",
+        "zuske/auth-client-bundle": "^4.0"
     },
     "config": {
         "allow-plugins": {

@@ -7,11 +7,11 @@ use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;
 
-class ClientAuthService
+class ClientService
 {
     private Client $client;
 
-    public function __construct(string $host)
+    public function __construct()
     {
         $this->client = new Client([
             'base_uri' => 'apache2_auth_service:80',

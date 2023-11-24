@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Presentation\VO;
+namespace App\Presentation\Resolver;
 
-readonly class AuthServiceVO
+readonly class AuthServiceResolver
 {
     public function getHost(): string
     {

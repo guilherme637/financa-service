@@ -18,4 +18,6 @@ services:
 
   App\Controller\:
     resource: '../../src/Controller/'
-    tags: [ 'controller.service_arguments' ]
+    tags: ['controller.service_arguments']
+  Zuske\AuthClient\Service\AuthClientClientService:
+    arguments: ['', '@kernel']

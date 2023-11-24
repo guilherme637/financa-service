@@ -129,5 +129,8 @@
         "files": [
             "config/packages/validator.yaml"
         ]
+    },
+    "zuske/auth-client-bundle": {
+        "version": "2.2.0"
     }
 }

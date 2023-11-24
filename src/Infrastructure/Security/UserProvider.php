@@ -2,6 +2,8 @@
 
 namespace App\Infrastructure\Security;
 
+use App\Domain\Entity\Usuario;
+use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 
@@ -13,12 +15,16 @@ class UserProvider implements UserProviderInterface
 
     public function refreshUser(UserInterface $user)
     {
-        // TODO: Implement refreshUser() method.
+        if (!$user instanceof Usuario) {
+            throw new UnsupportedUserException(sprintf('Invalid user class "%s".', get_class($user)));
+        }
+
+        return $user;
     }
 
     public function supportsClass(string $class)
     {
-        // TODO: Implement supportsClass() method.
+        return Usuario::class === $class || is_subclass_of($class, \Zuske\AuthClient\Security\Usuario::class);
     }
 
     public function loadUserByUsername(string $username)

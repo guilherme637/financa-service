@@ -11,8 +11,3 @@ services:
   App\Domain\Adapter\Redis\RedisAdapter:
     arguments:
       $host: '%env(HOST_REDIS)%'
-
-  App\Infrastructure\Client\ClientAuthService:
-    arguments:
-      $host: '%env(resolve:OAUTH_URL)%'
-

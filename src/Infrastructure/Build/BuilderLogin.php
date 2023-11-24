@@ -2,13 +2,13 @@
 
 namespace App\Infrastructure\Build;
 
-use App\Presentation\VO\AuthServiceVO;
+use App\Presentation\Resolver\AuthServiceResolver;
 
 class BuilderLogin
 {
     private const QUERY = '/login?response_type=%s&client_id=%s&redirect_uri=%s&scope=%s&state=%s';
 
-    public function build(AuthServiceVO $loginRequest, string $state): string
+    public function build(AuthServiceResolver $loginRequest, string $state): string
     {
         return $loginRequest->getHost()
             . sprintf(
