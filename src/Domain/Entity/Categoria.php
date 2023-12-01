@@ -8,36 +8,20 @@ use Doctrine\Common\Collections\Collection;
 class Categoria
 {
     private int $id;
-    private int $nome;
-    private Collection $contas;
-
-    public function __construct()
-    {
-        $this->contas = new ArrayCollection();
-    }
+    private string $nome;
 
     public function getId(): int
     {
         return $this->id;
     }
 
-    public function getNome(): int
+    public function getNome(): string
     {
         return $this->nome;
     }
 
-    public function setNome(int $nome): void
+    public function setNome(string $nome): void
     {
         $this->nome = $nome;
-    }
-
-    public function getContas(): Collection
-    {
-        return $this->contas;
-    }
-
-    public function setContas(Conta $contas): void
-    {
-        $this->contas->add($contas);
     }
 }

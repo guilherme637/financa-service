@@ -7,15 +7,20 @@
         <field name="valor" type="float" nullable="false"/>
         <field name="mesDivida" type="datetime" nullable="false"/>
         <field name="situacao" type="string" nullable="false"/>
+        <field name="usuario" type="integer" nullable="false"/>
 
         <many-to-one field="categoria" target-entity="App\Domain\Entity\Categoria" inversed-by="contas">
             <join-column name="nu_seq_categoria" referenced-column-name="nu_seq_categoria" />
         </many-to-one>
 
-        <many-to-one field="usuario" target-entity="App\Domain\Entity\Usuario" inversed-by="contas">
-            <join-column name="id" referenced-column-name="id"/>
-        </many-to-one>
+<!--        <many-to-one field="usuario" target-entity="App\Domain\Entity\Usuario" inversed-by="contas">-->
+<!--            <join-column name="id" referenced-column-name="id"/>-->
+<!--        </many-to-one>-->
 
-        <one-to-one field="parcela" target-entity="App\Domain\Entity\Parcela" inversed-by="conta"/>
+        <one-to-one field="parcela" target-entity="App\Domain\Entity\Parcela" inversed-by="conta">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-one>
     </entity>
 </doctrine-mapping>

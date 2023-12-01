@@ -2,14 +2,14 @@
 
 namespace App\Infrastructure\Assembler;
 
-use App\Presentation\Dto\TokenRequestDto;
+use App\Presentation\Dto\CreateFinancasPostDto;
 use App\Presentation\Resolver\AuthServiceResolver;
 
 class AuthServiceAssembler
 {
 
 
-    public function assemblerTokenPost(string $code): TokenRequestDto
+    public function assemblerTokenPost(string $code): CreateFinancasPostDto
     {
         $authServiceVO = new AuthServiceVO();
 

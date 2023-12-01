@@ -11,7 +11,7 @@ class LoginGetAction
 {
     public function __construct(private readonly AuthClientServiceInterface $authService) {}
 
-    #[Route('/login', methods: ['GET'])]
+    #[Route('/login', name: 'route_login', methods: ['GET'])]
     public function __invoke(Request $request): RedirectResponse
     {
         if ($request->getPathInfo() === '/login') {

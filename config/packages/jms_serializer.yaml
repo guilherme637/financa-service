@@ -3,10 +3,10 @@ jms_serializer:
         xml_serialization:
             format_output: '%kernel.debug%'
     metadata:
-        auto_detection: false
+        auto_detection: true
         directories:
             serialize:
-                namespace_prefix: "App\\Domain\\VO\\"
+                namespace_prefix: "App\\Presentation\\Dto\\"
                 path: "%kernel.project_dir%/config/infrastructure/serializer"
 
 when@prod:

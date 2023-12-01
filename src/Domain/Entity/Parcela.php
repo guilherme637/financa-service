@@ -11,6 +11,12 @@ class Parcela
     private int $total;
     private int $pago;
     private Conta $conta;
+    private Collection $mesesPagos;
+
+    public function __construct()
+    {
+        $this->mesesPagos = new ArrayCollection();
+    }
 
     public function getId(): int
     {
@@ -37,13 +43,23 @@ class Parcela
         $this->pago = $pago;
     }
 
-    public function getContas(): Conta
+    public function getConta(): Conta
     {
         return $this->conta;
     }
 
-    public function setContas(Conta $contas): void
+    public function setConta(Conta $contas): void
     {
         $this->conta = $contas;
+    }
+
+    public function getMesesPagos(): Collection
+    {
+        return $this->mesesPagos;
+    }
+
+    public function setMesesPagos(MesesPagos $mesesPagos): void
+    {
+        $this->mesesPagos->add($mesesPagos);
     }
 }

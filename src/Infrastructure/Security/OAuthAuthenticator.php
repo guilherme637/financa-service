@@ -5,14 +5,13 @@ namespace App\Infrastructure\Security;
 use App\Domain\Adapter\Redis\RedisAdapterInterface;
 use App\Domain\Adapter\Serializer\SerializerInterface;
 use App\Domain\Entity\Usuario;
-use App\Infrastructure\Subscriber\Exception\Status400\NotAuthorizationHttpException;
 use Auth\Token;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authenticator\AbstractAuthenticator;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\CustomCredentials;
@@ -40,7 +39,7 @@ class OAuthAuthenticator extends AbstractAuthenticator
         if (null === $token) {
             // The token header was empty, authentication fails with HTTP Status
             // Code 401 "Unauthorized"
-            throw new NotAuthorizationHttpException('Unauthorized');
+            throw new UnauthorizedHttpException('Unauthorized');
         }
 
         return new Passport(

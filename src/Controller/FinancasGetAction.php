@@ -12,12 +12,18 @@ class FinancasGetAction
     public function __invoke(TokenStorageInterface $storage)
     {
         return new JsonResponse([
-            'conta' => 'Camisa Corinthians',
-            'valor' => 299.99,
-            'mes_divida' => new \DateTime('2023-03-15'),
-            'situacao' => 'Pago',
-            'categoria' => 'Outros',
-            'parcela' => '2/10',
+            'valor' => 60.20,
+            'mes_divida' => '2023-06-11',
+            'situacao' => 'em divida',
+            'categoria' => 2,
+            'parcela' => [
+                'total' => 10,
+                'total_pago' => 2,
+                'meses_pagos' => [
+                    '2023-07-08',
+                    '2023-07-08'
+                ]
+            ]
         ]);
     }
 }

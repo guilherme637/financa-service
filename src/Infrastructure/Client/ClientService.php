@@ -2,7 +2,7 @@
 
 namespace App\Infrastructure\Client;
 
-use App\Presentation\Dto\TokenRequestDto;
+use App\Presentation\Dto\CreateFinancasPostDto;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
 use Psr\Http\Message\ResponseInterface;

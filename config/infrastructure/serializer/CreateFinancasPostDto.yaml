@@ -1,0 +1,18 @@
+App\Presentation\Dto\CreateFinancasPostDto:
+  exclusion_policy: ALL
+  properties:
+    valor:
+      type: float
+      serialized_name: valor
+    mesDivida:
+      type: string
+      serialized_name: mes_divida
+    situacao:
+      type: string
+      serialized_name: situacao
+    categoria:
+      type: string
+      serialized_name: categoria
+    parcela:
+      type: App\Presentation\Dto\VO\ParcelaVO
+      serialized_name: parcela

@@ -10,7 +10,7 @@ class Conta
     private string $situacao;
     private Categoria $categoria;
     private Parcela $parcela;
-    private Usuario $usuario;
+    private int $usuario;
 
     public function getId(): int
     {
@@ -67,12 +67,12 @@ class Conta
         $this->parcela = $parcela;
     }
 
-    public function getUsuario(): Usuario
+    public function getUsuario(): int
     {
         return $this->usuario;
     }
 
-    public function setUsuario(Usuario $usuario): void
+    public function setUsuario(int $usuario): void
     {
         $this->usuario = $usuario;
     }

@@ -9,6 +9,14 @@ CREATE TABLE IF NOT EXISTS parcela (
     pago INTEGER DEFAULT 0
 );
 
+CREATE TABLE IF NOT EXISTS meses_pagos(
+    nu_seq_meses_pagos serial PRIMARY KEY,
+    dt_pagamento TIMESTAMP NOT NULL,
+    nu_seq_parcela INTEGER,
+
+    CONSTRAINT fk_nu_seq_parcela FOREIGN KEY(nu_seq_parcela) REFERENCES parcela(nu_seq_parcela)
+);
+
 CREATE TABLE IF NOT EXISTS conta (
    nu_seq_conta serial PRIMARY KEY,
    valor DECIMAL NOT NULL,
@@ -27,7 +35,7 @@ alter table parcela
     add constraint fk_nu_seq_conta
         foreign key (nu_seq_conta) references conta (nu_seq_conta);
 
-alter table categoria
-    add nu_seq_conta integer not null,
-    add constraint fk_nu_seq_conta
-        foreign key (nu_seq_conta) references conta (nu_seq_conta);
+-- alter table categoria
+--     add nu_seq_conta integer not null,
+--     add constraint fk_nu_seq_conta
+--         foreign key (nu_seq_conta) references conta (nu_seq_conta);

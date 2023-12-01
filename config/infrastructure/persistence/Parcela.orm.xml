@@ -1,6 +1,6 @@
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
     <entity name="App\Domain\Entity\Parcela">
-        <id name="id">
+        <id name="id" column="nu_seq_parcela">
             <generator strategy="AUTO"/>
         </id>
 
@@ -10,5 +10,10 @@
         <one-to-one field="conta" target-entity="App\Domain\Entity\Conta" mapped-by="parcela" fetch="EXTRA_LAZY">
             <join-column name="nu_seq_conta" referenced-column-name="nu_seq_conta"/>
         </one-to-one>
+        <one-to-many field="mesesPagos" target-entity="App\Domain\Entity\MesesPagos" mapped-by="parcela">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
     </entity>
 </doctrine-mapping>

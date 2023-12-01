@@ -12,7 +12,7 @@ RUN docker-php-ext-install pdo_pgsql
 RUN pecl install redis && docker-php-ext-enable redis
 
 
-WORKDIR /var/www/html/controle-gastos-service
+WORKDIR /var/www/html/financa-service
 
 RUN chown -R $(whoami) $(pwd)
 

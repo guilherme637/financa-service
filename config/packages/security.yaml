@@ -30,6 +30,7 @@ security:
          - { path: ^/login, roles: [ PUBLIC_ACCESS ] }
          - { path: ^/me, roles: PUBLIC_ACCESS }
          - { path: ^/financas, roles: ROLE_USER }
+         - { path: ^/v1/, roles: ROLE_USER }
 
 when@test:
     security:

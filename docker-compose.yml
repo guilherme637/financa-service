@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: ./devops/docker/php/Dockerfile
     volumes:
-      - .:/var/www/html/controle-gastos-service:rw
+      - .:/var/www/html/financa-service:rw
       - /certificates:/certificates
       - ./devops/docker/php/php.ini:/usr/local/etc/php/php.ini
     networks:
@@ -22,8 +22,8 @@ services:
     ports:
       - 3030:80
     volumes:
-      - .:/var/www/html/controle-gastos-service:rw
-      - ./devops/docker/apache/vhosts/api.conf:/etc/apache2/sites-enabled/default.conf
+      - .:/var/www/html/financa-service:rw
+      - ./devops/docker/apache/vhosts/default.conf:/etc/apache2/sites-enabled/000-default.conf
     networks:
       - external-net
     depends_on:
