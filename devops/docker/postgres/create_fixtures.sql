@@ -22,12 +22,10 @@ CREATE TABLE IF NOT EXISTS conta (
    valor DECIMAL NOT NULL,
    mes_divida TIMESTAMP NOT NULL,
    situacao VARCHAR (225) NOT NULL,
-   nu_seq_categoria INTEGER NOT NULL,
-   nu_seq_parcela INTEGER NOT NULL,
+   nu_seq_categoria INTEGER,
    nu_seq_usuario INTEGER NOT NULL,
-
-   CONSTRAINT fk_nu_seq_categoria FOREIGN KEY(nu_seq_categoria) REFERENCES categoria(nu_seq_categoria),
-   CONSTRAINT fk_nu_seq_parcela FOREIGN KEY(nu_seq_parcela) REFERENCES parcela(nu_seq_parcela)
+   UNIQUE(nu_seq_categoria),
+   CONSTRAINT fk_nu_seq_categoria FOREIGN KEY(nu_seq_categoria) REFERENCES categoria(nu_seq_categoria)
 );
 
 alter table parcela

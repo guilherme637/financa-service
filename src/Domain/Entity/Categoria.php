@@ -7,8 +7,13 @@ use Doctrine\Common\Collections\Collection;
 
 class Categoria
 {
-    private int $id;
+    private ?int $id;
     private string $nome;
+
+    public function __construct(?int $id = null)
+    {
+        $this->id = $id;
+    }
 
     public function getId(): int
     {

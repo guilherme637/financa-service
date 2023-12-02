@@ -37,12 +37,12 @@ class Conta
         $this->mesDivida = $mesDivida;
     }
 
-    public function getSituacao(): int
+    public function getSituacao(): string
     {
         return $this->situacao;
     }
 
-    public function setSituacao(int $situacao): void
+    public function setSituacao(string $situacao): void
     {
         $this->situacao = $situacao;
     }

@@ -4,8 +4,7 @@ namespace App\Infrastructure\Service;
 
 use App\Domain\Adapter\Persistence\ContaRepositoryInterface;
 use App\Domain\Entity\Usuario;
-use App\Infrastructure\Build\Conta\ContaBuilder;
-use App\Presentation\Dto\CreateFinancasPostDto;
+use App\Presentation\Dto\ContaDto;
 
 class FinancasService
 {
@@ -15,13 +14,10 @@ class FinancasService
     ) {
     }
 
-    public function createFinanca(CreateFinancasPostDto $createFinancasPostDto, Usuario $usuario)
+    public function createFinanca(ContaDto $contaDto, Usuario $usuario)
     {
-        $conta = (new ContaBuilder())->build(
-            $createFinancasPostDto,
-            $this->categoriaService->findCategoria($createFinancasPostDto->getCategoria()),
-            $usuario
-        );
+        $conta = $contaDto->toEntity();
+        $conta->setUsuario($usuario->getId());
 
         $this->contaRepository->save($conta);
     }

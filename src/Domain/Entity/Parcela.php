@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 
 class Parcela
 {
-    private int $id;
+    private ?int $id;
     private int $total;
     private int $pago;
     private Conta $conta;
@@ -33,7 +33,7 @@ class Parcela
         $this->total = $total;
     }
 
-    public function getPago(): int
+    public function getPago(): ?int
     {
         return $this->pago;
     }
