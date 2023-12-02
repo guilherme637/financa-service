@@ -4,6 +4,7 @@ namespace App\Presentation\Dto;
 
 use App\Domain\Dto\Dto;
 use App\Domain\Entity\MesesPagos;
+use App\Infrastructure\Validator\MesPago\MesPagoValidator;
 
 class MesesPagosDto extends Dto
 {
@@ -21,14 +22,23 @@ class MesesPagosDto extends Dto
         $this->dtPagamento = $dtPagamento;
     }
 
+    public static function create(\DateTime $dateTime): MesesPagosDto
+    {
+        return new self($dateTime);
+    }
+
     public static function fromArray(array $data): MesesPagosDto
     {
+        self::validate($data);
+
         return new self(new \DateTime(current($data)));
     }
 
     public function toArray(): array
     {
-        return call_user_func('get_object_vars', $this);
+        return [
+          $this->dtPagamento
+        ];
     }
 
     public function toEntity(): MesesPagos
@@ -37,5 +47,10 @@ class MesesPagosDto extends Dto
         $mesPago->setDtPagamento($this->dtPagamento);
 
         return $mesPago;
+    }
+
+    protected static function validate(array $data): void
+    {
+        (new MesPagoValidator($data))->validate();
     }
 }

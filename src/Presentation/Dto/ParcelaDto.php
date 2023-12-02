@@ -4,6 +4,7 @@ namespace App\Presentation\Dto;
 
 use App\Domain\Dto\Dto;
 use App\Domain\Entity\Parcela;
+use App\Infrastructure\Validator\Parcela\ParcelaValidator;
 
 class ParcelaDto extends Dto
 {
@@ -45,13 +46,15 @@ class ParcelaDto extends Dto
 
     public static function fromArray(array $data): ParcelaDto
     {
+        self::validate($data);
+
         $parcelaDto = new self(
             $data['total'],
             $data['total_pago']
         );
 
-        foreach ($data['meses_pagos'] as $mesPago) {
-            $parcelaDto->setMesesPagos(MesesPagosDto::fromArray([$mesPago]));
+        foreach ($data['meses_pagos'] as $mes) {
+            $parcelaDto->setMesesPagos(MesesPagosDto::create(new \DateTime($mes)));
         }
 
         return $parcelaDto;
@@ -59,7 +62,17 @@ class ParcelaDto extends Dto
 
     public function toArray(): array
     {
-        return call_user_func('get_object_vars', $this);
+        $paracelaArray = [
+            'total' => $this->getTotal(),
+            'total_pago' => $this->getTotalPago(),
+            'meses_pagos' => []
+        ];
+
+        foreach ($this->getMesesPagos() as $mesesPago) {
+            array_push($paracelaArray['meses_pagos'], $mesesPago->getDtPagamento());
+        }
+
+        return $paracelaArray;
     }
 
     public function toEntity(): Parcela
@@ -70,9 +83,16 @@ class ParcelaDto extends Dto
 
         /** @var MesesPagosDto $mesPago */
         foreach ($this->mesesPagos as $mesPago) {
-            $parcela->setMesesPagos($mesPago->toEntity());
+            $mesEntity = $mesPago->toEntity();
+            $parcela->setMesesPagos($mesEntity);
+            $mesEntity->setParcela($parcela);
         }
 
         return $parcela;
+    }
+
+    protected static function validate(array $data): void
+    {
+        (new ParcelaValidator($data))->validate();
     }
 }

@@ -10,9 +10,9 @@
         <field name="usuario" type="integer" column="nu_seq_usuario" nullable="false"/>
 
         <many-to-one field="categoria" target-entity="App\Domain\Entity\Categoria">
-            <cascade>
-                <cascade-persist/>
-            </cascade>
+<!--            <cascade>-->
+<!--                <cascade-persist/>-->
+<!--            </cascade>-->
             <join-column name="nu_seq_categoria" referenced-column-name="nu_seq_categoria" />
         </many-to-one>
 

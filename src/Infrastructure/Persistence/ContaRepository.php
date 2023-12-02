@@ -11,4 +11,15 @@ class ContaRepository extends AbstractRepository implements ContaRepositoryInter
     public function entity(): string
     {
         return Conta::class;
-    }}
+    }
+
+    public function listAll(int $usuario): array
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.usuario = :nu_seq_usuario')
+            ->setParameter('nu_seq_usuario', $usuario)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+}

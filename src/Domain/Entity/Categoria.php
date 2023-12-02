@@ -9,10 +9,12 @@ class Categoria
 {
     private ?int $id;
     private string $nome;
+    private Collection $contas;
 
     public function __construct(?int $id = null)
     {
         $this->id = $id;
+        $this->contas = new ArrayCollection();
     }
 
     public function getId(): int
@@ -28,5 +30,15 @@ class Categoria
     public function setNome(string $nome): void
     {
         $this->nome = $nome;
+    }
+
+    public function getContas(): Collection
+    {
+        return $this->contas;
+    }
+
+    public function setContas(Collection $contas): void
+    {
+        $this->contas = $contas;
     }
 }

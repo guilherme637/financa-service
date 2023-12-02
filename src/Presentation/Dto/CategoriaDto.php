@@ -4,6 +4,7 @@ namespace App\Presentation\Dto;
 
 use App\Domain\Dto\Dto;
 use App\Domain\Entity\Categoria;
+use App\Infrastructure\Validator\Categoria\CategoriaValidator;
 
 class CategoriaDto extends Dto
 {
@@ -16,10 +17,6 @@ class CategoriaDto extends Dto
         return $this->id;
     }
 
-    public function setId(?int $id): void
-    {
-        $this->id = $id;
-    }
 
     public function getNome(): string
     {
@@ -33,12 +30,17 @@ class CategoriaDto extends Dto
 
     public static function fromArray(array $data): CategoriaDto
     {
+        self::validate($data);
+
         return new self($data['categoria'] ?? null, $data['nome']);
     }
 
     public function toArray(): array
     {
-        return call_user_func('get_object_vars', $this);
+        return [
+            'categoria' => $this->id,
+            'nome' => $this->nome,
+        ];
     }
 
     public function toEntity(): Categoria
@@ -47,5 +49,10 @@ class CategoriaDto extends Dto
         $categoria->setNome($this->getNome());
 
         return $categoria;
+    }
+
+    protected static function validate(array $data): void
+    {
+        (new CategoriaValidator($data))->validate();
     }
 }
