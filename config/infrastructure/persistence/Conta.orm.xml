@@ -4,21 +4,21 @@
             <generator strategy="AUTO"/>
         </id>
 
+        <field name="descricao" column="nome" type="string" nullable="false"/>
         <field name="valor" type="float" column="valor" nullable="false"/>
         <field name="mesDivida" type="datetime" column="mes_divida" nullable="false"/>
-        <field name="situacao" type="string"  column="situacao" nullable="false"/>
-        <field name="usuario" type="integer" column="nu_seq_usuario" nullable="false"/>
 
-        <many-to-one field="categoria" target-entity="App\Domain\Entity\Categoria">
-<!--            <cascade>-->
-<!--                <cascade-persist/>-->
-<!--            </cascade>-->
+        <many-to-one field="situacao" target-entity="App\Domain\Entity\Situacao">
+            <join-column name="nu_seq_situacao" referenced-column-name="nu_seq_situacao"/>
+        </many-to-one>
+
+        <many-to-one field="categoria" target-entity="App\Domain\Entity\Categoria" inversed-by="contas">
             <join-column name="nu_seq_categoria" referenced-column-name="nu_seq_categoria" />
         </many-to-one>
 
-<!--        <many-to-one field="usuario" target-entity="App\Domain\Entity\Usuario" inversed-by="contas">-->
-<!--            <join-column name="id" referenced-column-name="id"/>-->
-<!--        </many-to-one>-->
+        <many-to-one field="perfil" target-entity="App\Domain\Entity\Perfil" inversed-by="contas">
+            <join-column name="nu_seq_perfil" referenced-column-name="nu_seq_perfil"/>
+        </many-to-one>
 
         <one-to-one field="parcela" target-entity="App\Domain\Entity\Parcela" mapped-by="conta">
             <cascade>

@@ -3,7 +3,9 @@
 namespace App\Infrastructure\Service;
 
 use App\Domain\Adapter\Persistence\ContaRepositoryInterface;
+use App\Domain\Adapter\Serializer\SerializerInterface;
 use App\Presentation\Dto\ContaDto;
+use App\Presentation\Dto\Response\ContaResponseDto;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -14,6 +16,8 @@ class ContaService
     public function __construct(
         private readonly ContaRepositoryInterface $contaRepository,
         private readonly CategoriaService $categoriaService,
+        private readonly SituacaoService $situacaoService,
+        private readonly SerializerInterface $serializer,
         TokenStorageInterface $tokenStorage
     ) {
         $this->user = $tokenStorage->getToken()->getUser();
@@ -23,14 +27,22 @@ class ContaService
     {
         $conta = $contaDto->toEntity();
 
-        $conta->setUsuario($this->user->getId());
+        $conta->setPerfil($this->user->getPerfil());
         $conta->setCategoria($this->categoriaService->findCategoria($contaDto->getCategoria()->getId()));
+        $conta->setSituacao($this->situacaoService->find($contaDto->getSituacao()->getId()));
 
         $this->contaRepository->save($conta);
     }
 
     public function listAllContas()
     {
-        return $this->contaRepository->listAll($this->user->getId());
+        $contasEntity = $this->contaRepository->listAll($this->user->getPerfil()->getId());
+        $contas = [];
+
+        foreach ($contasEntity as $conta) {
+            $contas[] = ContaResponseDto::fromEntity($conta);
+        }
+
+        return $this->serializer->serialize($contas, 'json');
     }
 }

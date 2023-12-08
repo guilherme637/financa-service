@@ -16,6 +16,6 @@ class FinancasGetAction
     #[Route(path: '/v1/financas', methods: ['GET'])]
     public function __invoke(TokenStorageInterface $storage)
     {
-        return new JsonResponse($this->contaService->listAllContas());
+        return new JsonResponse($this->contaService->listAllContas(), JsonResponse::HTTP_OK, [], true);
     }
 }

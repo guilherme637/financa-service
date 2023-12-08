@@ -5,6 +5,7 @@ namespace App\Infrastructure\Security;
 use App\Domain\Adapter\Redis\RedisAdapterInterface;
 use App\Domain\Adapter\Serializer\SerializerInterface;
 use App\Domain\Entity\Usuario;
+use App\Infrastructure\Service\UsuarioService;
 use Auth\Token;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,7 +24,8 @@ class OAuthAuthenticator extends AbstractAuthenticator
     public function __construct(
         private readonly RedisAdapterInterface $redisAdapter,
         private readonly SerializerInterface $serializer,
-        private readonly OAuthClient $authClient
+        private readonly OAuthClient $authClient,
+        private readonly UsuarioService $usuarioService
     ) {}
 
     public function supports(Request $request): ?bool
@@ -43,8 +45,10 @@ class OAuthAuthenticator extends AbstractAuthenticator
         }
 
         return new Passport(
-            new UserBadge($token, function (string $email) {
-                return $this->serializer->deserialize($email, Usuario::class, 'json');
+            new UserBadge($token, function (string $user) {
+                $usuario = $this->usuarioService->deserializeUsuario($user);
+
+                return $usuario;
             }),
             new CustomCredentials(
                 function (\stdClass $credentials, Usuario $user): bool {

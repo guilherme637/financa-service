@@ -5,16 +5,27 @@ namespace App\Domain\Entity;
 class Conta
 {
     private int $id;
+    private string $descricao;
     private float $valor;
     private \DateTime $mesDivida;
-    private string $situacao;
+    private Situacao $situacao;
     private Categoria $categoria;
     private Parcela $parcela;
-    private int $usuario;
+    private Perfil $perfil;
 
     public function getId(): int
     {
         return $this->id;
+    }
+
+    public function getDescricao(): string
+    {
+        return $this->descricao;
+    }
+
+    public function setDescricao(string $descricao): void
+    {
+        $this->descricao = $descricao;
     }
 
     public function getValor(): float
@@ -37,12 +48,12 @@ class Conta
         $this->mesDivida = $mesDivida;
     }
 
-    public function getSituacao(): string
+    public function getSituacao(): Situacao
     {
         return $this->situacao;
     }
 
-    public function setSituacao(string $situacao): void
+    public function setSituacao(Situacao $situacao): void
     {
         $this->situacao = $situacao;
     }
@@ -67,13 +78,13 @@ class Conta
         $this->parcela = $parcela;
     }
 
-    public function getUsuario(): int
+    public function getPerfil(): Perfil
     {
-        return $this->usuario;
+        return $this->perfil;
     }
 
-    public function setUsuario(int $usuario): void
+    public function setPerfil(Perfil $perfil): void
     {
-        $this->usuario = $usuario;
+        $this->perfil = $perfil;
     }
 }

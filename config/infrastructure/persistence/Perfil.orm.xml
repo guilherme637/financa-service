@@ -1,0 +1,13 @@
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping">
+    <entity name="App\Domain\Entity\Perfil">
+        <id name="id" column="nu_seq_perfil">
+            <generator strategy="NONE"/>
+        </id>
+
+        <field name="nome" column="nome" type="string" nullable="false"/>
+        <field name="receita" column="receita" type="float" nullable="false"/>
+        <field name="usuario" column="nu_seq_usuario" type="integer" nullable="false"/>
+
+        <one-to-many field="contas" target-entity="App\Domain\Entity\Conta" mapped-by="perfil" fetch="EXTRA_LAZY"/>
+    </entity>
+</doctrine-mapping>

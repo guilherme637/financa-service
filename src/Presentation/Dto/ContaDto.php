@@ -6,17 +6,27 @@ use App\Domain\Dto\Dto;
 use App\Domain\Entity\Conta;
 use App\Infrastructure\Build\Conta\ContaBuilder;
 use App\Infrastructure\Validator\Conta\ContaValidator;
-use Symfony\Component\HttpFoundation\Exception\BadRequestException;
 
 class ContaDto extends Dto
 {
     private function __construct(
-        private ?float $valor,
-        private ?\DateTime $mesDivida,
-        private ?string $situacao,
-        private ?CategoriaDto $categoria,
+        private string $descricao,
+        private float $valor,
+        private \DateTime $mesDivida,
+        private SituacaoDto $situacao,
+        private CategoriaDto $categoria,
         private ?ParcelaDto $parcela
     ) {}
+
+    public function getDescricao(): string
+    {
+        return $this->descricao;
+    }
+
+    public function setDescricao(string $descricao): void
+    {
+        $this->descricao = $descricao;
+    }
 
     public function getValor(): ?float
     {
@@ -38,12 +48,12 @@ class ContaDto extends Dto
         $this->mesDivida = $mesDivida;
     }
 
-    public function getSituacao(): ?string
+    public function getSituacao(): ?SituacaoDto
     {
         return $this->situacao;
     }
 
-    public function setSituacao(?string $situacao): void
+    public function setSituacao(?SituacaoDto $situacao): void
     {
         $this->situacao = $situacao;
     }
@@ -73,9 +83,10 @@ class ContaDto extends Dto
         self::validate($data);
 
         return new self(
+            $data['descricao'],
             $data['valor'],
             new \DateTime($data['mes_divida']),
-            $data['situacao'],
+            SituacaoDto::fromArray($data['situacao']),
             CategoriaDto::fromArray($data['categoria']),
             ParcelaDto::fromArray($data['parcela'])
         );
@@ -84,9 +95,10 @@ class ContaDto extends Dto
     public function toArray(): array
     {
         return [
-            'valor' => $this->valor,
-            'mes_divida' => $this->mesDivida,
-            'situacao' => $this->situacao,
+            'descricao' => $this->getDescricao(),
+            'valor' => $this->getValor(),
+            'mes_divida' => $this->getMesDivida(),
+            'situacao' => $this->situacao->toArray(),
             'categoria' => $this->categoria->toArray(),
             'parcela' => $this->parcela->toArray(),
         ];

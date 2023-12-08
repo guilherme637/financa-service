@@ -13,8 +13,9 @@ class ContaBuilder implements ContaBuilderInterface
         $conta = new Conta();
         $parcela = $contaDto->getParcela()->toEntity();
 
+        $conta->setDescricao($contaDto->getDescricao());
         $conta->setValor($contaDto->getValor());
-        $conta->setSituacao($contaDto->getSituacao());
+        $conta->setSituacao($contaDto->getSituacao()->toEntity());
         $conta->setMesDivida($contaDto->getMesDivida());
         $conta->setCategoria($contaDto->getCategoria()->toEntity());
         $parcela->setConta($conta);
